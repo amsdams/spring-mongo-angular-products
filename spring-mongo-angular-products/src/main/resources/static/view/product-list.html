@@ -1,0 +1,22 @@
+<div ng-controller="ProductListController">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>name</th>
+				<th>brand</th>
+				<th>priceNew</th>
+				<th>priceOld</th>
+				<th>url</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="product in products._embedded.products">
+				<td ng-bind="product.name"></td>
+				<td ng-bind="product.brand"></td>
+				<td ng-bind="product.priceNew"></td>
+				<td ng-bind="product.priceOld"></td>
+				<td ng-bind="product.url"></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,49 @@
+buildscript {
+repositories {
+mavenCentral()
+maven { url 'http://repo.spring.io/plugins-release' }
+}
+dependencies {
+classpath(
+"org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE",
+"org.springframework.build.gradle:propdeps-plugin:0.0.6"
+) 
+}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+configure(allprojects) {
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-eclipse'
+}
+
+jar {
+baseName = 'spring-mongo-angular-starter'
+version =  '0.1.0'
+}
+
+repositories {
+mavenCentral()
+}
+
+ext {
+junitVersion = '4.12'
+springBootVersion = '1.2.2.RELEASE'
+}
+
+dependencies {
+compile(
+"org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}",
+"org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}",
+"org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+)
+testCompile("junit:junit:${junitVersion}")
+provided("org.projectlombok:lombok:1.16.2")
+}
+
+task wrapper(type: Wrapper) {
+gradleVersion = '2.3'
+}
