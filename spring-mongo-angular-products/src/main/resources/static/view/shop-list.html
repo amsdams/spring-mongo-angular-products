@@ -1,0 +1,23 @@
+<div ng-controller="ShopListController">
+	<h1>
+		Shops <i class="fa fa-star"></i>
+	</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>name</th>
+				<th>url</th>
+				
+				<th>Detail</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="shop in shops._embedded.shops">
+				<td ng-bind="shop.name"></td>
+				<td ng-bind="shop.url"></td>
+				<td ng-bind="shop.id"></td>
+				<td><a class="btn" ng-click="controller(shop._links.self.href)">Detail</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,4 +1,7 @@
 <div ng-controller="ProductListController">
+	<h1>
+		Products <i class="fa fa-star"></i>
+	</h1>
 	<table class="table">
 		<thead>
 			<tr>
@@ -7,6 +10,7 @@
 				<th>priceNew</th>
 				<th>priceOld</th>
 				<th>url</th>
+				<th>Detail</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -16,6 +20,7 @@
 				<td ng-bind="product.priceNew"></td>
 				<td ng-bind="product.priceOld"></td>
 				<td ng-bind="product.url"></td>
+				<td><a class="btn" ng-click="controller(product._links.self.href)">Detail</a></td>
 			</tr>
 		</tbody>
 	</table>

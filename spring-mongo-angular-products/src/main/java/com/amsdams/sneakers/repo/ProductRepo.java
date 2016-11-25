@@ -11,4 +11,8 @@ public interface ProductRepo extends MongoRepository<Product, String> {
 	Page<Product> findByName(
 		      @Param("name") String name,
 		      Pageable pageable);
+	
+	Page<Product> findByBrand(
+		      @Param("brand") String brand,
+		      Pageable pageable);
 }

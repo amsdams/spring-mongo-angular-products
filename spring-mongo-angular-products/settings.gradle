@@ -16,4 +16,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'spring-mongo-angular-starter2'
+rootProject.name = 'spring-mongo-angular-products'

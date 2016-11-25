@@ -21,7 +21,7 @@ apply plugin: 'propdeps-eclipse'
 }
 
 jar {
-baseName = 'spring-mongo-angular-starter'
+baseName = 'spring-mongo-angular-products'
 version =  '0.1.0'
 }
 
@@ -29,16 +29,24 @@ repositories {
 mavenCentral()
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
 ext {
 junitVersion = '4.12'
 springBootVersion = '1.2.2.RELEASE'
+	swaggerVersion = '2.6.1'
 }
 
 dependencies {
 compile(
 "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}",
 "org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}",
-"org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+"org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+"org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
+"io.springfox:springfox-swagger2:${swaggerVersion}",
+"io.springfox:springfox-swagger-ui:${swaggerVersion}"
 )
 testCompile("junit:junit:${junitVersion}")
 provided("org.projectlombok:lombok:1.16.2")
