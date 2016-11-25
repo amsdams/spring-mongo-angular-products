@@ -13,8 +13,10 @@ import org.springframework.data.domain.PageRequest;
 
 import com.amsdams.sneakers.entity.Product;
 import com.amsdams.sneakers.entity.Shop;
+import com.amsdams.sneakers.entity.Size;
 import com.amsdams.sneakers.repo.ProductRepo;
 import com.amsdams.sneakers.repo.ShopRepo;
+import com.amsdams.sneakers.repo.SizeRepo;
 
 import lombok.extern.slf4j.Slf4j;
 import springfox.documentation.service.ApiInfo;
@@ -30,18 +32,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 public class ProductApp implements CommandLineRunner {
 
-	
-
-	@Bean
-	public Docket swaggerSpringfoxDocket() {
-		log.debug("Starting Swagger");
-		
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().build();
-
-	}
-
-	private ApiInfo apiInfo() {
-		return new ApiInfo("title", "description", "version", "termsOfServiceUrl", "contact", "license", "licenseUrl");
+	public static void main(String[] args) {
+		SpringApplication.run(ProductApp.class, args);
 	}
 
 	@Autowired
@@ -50,23 +42,39 @@ public class ProductApp implements CommandLineRunner {
 	@Autowired
 	private ShopRepo shopRepo;
 
-	public static void main(String[] args) {
-		SpringApplication.run(ProductApp.class, args);
+	@Autowired
+	private SizeRepo sizeRepo;
+
+	private ApiInfo apiInfo() {
+		return new ApiInfo("title", "description", "version", "termsOfServiceUrl", "contact", "license", "licenseUrl");
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-
+		shopRepo.deleteAll();
 		productRepo.deleteAll();
+		sizeRepo.deleteAll();
+		// save a couple of Sizes
 
-		// save a couple of products
+		sizeRepo.save(new Size("43"));
+		sizeRepo.save(new Size("XL"));
+		sizeRepo.save(new Size("XXS"));
 
+		// fetch all Sizes
+		log.info("Sizes found with findAll():");
+		log.info("-------------------------------");
+		List<Size> sizes = sizeRepo.findAll();
+
+		for (Size size : sizes) {
+			log.info(size.toString());
+		}
+		// save a couple of Products
 		productRepo.save(new Product("Air Max", "Nike", BigDecimal.valueOf(1.0), BigDecimal.valueOf(2.0),
-				"http://www.google.com"));
+				"http://www.google.com", sizes));
 		productRepo.save(new Product("ZX Flux", "Adidas", BigDecimal.valueOf(1.0), BigDecimal.valueOf(2.0),
-				"http://www.google.com"));
+				"http://www.google.com", sizes));
 		productRepo.save(new Product("Blaze of Glory", "Puma", BigDecimal.valueOf(1.0), BigDecimal.valueOf(2.0),
-				"http://www.google.com"));
+				"http://www.google.com", sizes));
 
 		// fetch all products
 		log.info("Products found with findAll():");
@@ -90,13 +98,23 @@ public class ProductApp implements CommandLineRunner {
 			log.info(product.toString());
 		}
 
+		// save a couple of Shops
 		shopRepo.save(new Shop("shopName", "http://www.google.com/shops", products));
 
+		// fetch all Shops
 		log.info("Shops found with findAll():");
 		log.info("--------------------------------");
 		for (Shop shop : shopRepo.findAll()) {
 			log.info(shop.toString());
 		}
+
+	}
+
+	@Bean
+	public Docket swaggerSpringfoxDocket() {
+		log.debug("Starting Swagger");
+
+		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().build();
 
 	}
 }

@@ -13,18 +13,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Shop {
+	@Id
+	private String id;
+
+	private String name;
+	private String url;
+	@DBRef
+	private List<Product> products;
 	public Shop(String name, String url, List<Product> products) {
 		super();
 		this.name = name;
 		this.url = url;
 		this.products = products;
 	}
-
-	@Id
-	private String id;
-	private String name;
-	private String url;
-	@DBRef
-	private List<Product> products;
 
 }
