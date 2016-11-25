@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
 
 import com.amsdams.sneakers.entity.Product;
@@ -15,12 +17,32 @@ import com.amsdams.sneakers.repo.ProductRepo;
 import com.amsdams.sneakers.repo.ShopRepo;
 
 import lombok.extern.slf4j.Slf4j;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@Slf4j
 @SpringBootApplication
 @EnableSwagger2
+@Slf4j
+@Import({ springfox.documentation.spring.data.rest.configuration.SpringDataRestConfiguration.class,
+		springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration.class })
+
 public class ProductApp implements CommandLineRunner {
+
+	
+
+	@Bean
+	public Docket swaggerSpringfoxDocket() {
+		log.debug("Starting Swagger");
+		
+		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().build();
+
+	}
+
+	private ApiInfo apiInfo() {
+		return new ApiInfo("title", "description", "version", "termsOfServiceUrl", "contact", "license", "licenseUrl");
+	}
 
 	@Autowired
 	private ProductRepo productRepo;

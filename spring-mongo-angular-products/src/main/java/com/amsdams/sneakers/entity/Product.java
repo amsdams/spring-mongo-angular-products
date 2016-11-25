@@ -21,6 +21,7 @@ public class Product {
 	private String url;
 
 	public Product(String name, String brand, BigDecimal priceNew, BigDecimal priceOld, String url) {
+		super();
         this.name = name;
         this.brand = brand;
         this.priceNew =priceNew;

@@ -19,6 +19,7 @@ public class Shop {
 		this.url = url;
 		this.products = products;
 	}
+
 	@Id
 	private String id;
 	private String name;

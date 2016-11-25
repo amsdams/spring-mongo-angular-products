@@ -27,6 +27,8 @@ version =  '0.1.0'
 
 repositories {
 mavenCentral()
+maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+
 }
 
 sourceCompatibility = 1.8
@@ -35,8 +37,8 @@ targetCompatibility = 1.8
 
 ext {
 junitVersion = '4.12'
-springBootVersion = '1.2.2.RELEASE'
-	swaggerVersion = '2.6.1'
+springBootVersion = '1.4.2.RELEASE'
+swaggerVersion = '2.6.2-SNAPSHOT'
 }
 
 dependencies {
@@ -46,7 +48,10 @@ compile(
 "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
 "org.springframework.boot:spring-boot-starter-test:${springBootVersion}",
 "io.springfox:springfox-swagger2:${swaggerVersion}",
-"io.springfox:springfox-swagger-ui:${swaggerVersion}"
+"io.springfox:springfox-data-rest:${swaggerVersion}",
+"io.springfox:springfox-bean-validators:${swaggerVersion}",
+"io.springfox:springfox-swagger-ui:${swaggerVersion}",
+
 )
 testCompile("junit:junit:${junitVersion}")
 provided("org.projectlombok:lombok:1.16.2")
